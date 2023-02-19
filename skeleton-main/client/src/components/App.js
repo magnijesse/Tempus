@@ -6,6 +6,7 @@ import jwt_decode from "jwt-decode";
 import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
 import Home from "./pages/Home.js";
+import ClassSetup from "./pages/ClassSetup.js";
 
 import "../utilities.css";
 
@@ -52,6 +53,17 @@ const App = () => {
         path="/"
         element={
           <Skeleton
+            path="/"
+            handleLogin={handleLogin}
+            handleLogout={handleLogout}
+            userId={userId}
+          />
+        }
+      />
+      <Route
+        path="/classsetup"
+        element={
+          <ClassSetup
             path="/"
             handleLogin={handleLogin}
             handleLogout={handleLogout}
