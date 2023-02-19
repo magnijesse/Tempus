@@ -12,8 +12,8 @@ function verify(token) {
   return client
     .verifyIdToken({
       idToken: token,
-      audience: CLIENT_ID,
-    })
+      requiredAudience: CLIENT_ID,
+    })  
     .then((ticket) => ticket.getPayload());
 }
 
