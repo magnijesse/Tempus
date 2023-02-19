@@ -46,7 +46,7 @@ const App = () => {
   return (
     <Routes>
       <Route
-        path="/"
+        path="/skeleton"
         element={
           <Skeleton
             path="/"
@@ -58,7 +58,7 @@ const App = () => {
       />
       <Route path="*" element={<NotFound />} />
       <Route
-        path="/home"
+        path="/"
         element={
           <Home
             path="/"
