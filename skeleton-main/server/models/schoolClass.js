@@ -1,12 +1,10 @@
 const mongoose = require("mongoose");
 
-const ClassSchema = new mongoose.Schema({
+const SchoolClassSchema = new mongoose.Schema({
   name: String,
   classid: String,
-  blockNumber: int,
-  startTime: int,
-  endTime: int
+  blockNumber: int
 });
 
 // compile model from schema
-module.exports = mongoose.model("class", ClassSChema);
+module.exports = mongoose.model("schoolClass", SchoolClassSchema);

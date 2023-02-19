@@ -24,6 +24,7 @@ const App = () => {
   useEffect(() => {
     get("/api/whoami").then((user) => {
       if (user._id) {
+        console.log(user);
         // they are registed in the database, and currently logged in.
         setUserId(user._id);
       }
@@ -51,11 +52,11 @@ const App = () => {
         path="/"
         element={
           <Home
-            path="/"
             handleLogin={handleLogin}
             handleLogout={handleLogout}
             userId={userId}
           />
+          
         }
       />
        <Route
@@ -66,7 +67,19 @@ const App = () => {
 
           />
         }
+        
       />
+      <Route
+        path="/courses"
+        element={
+          <CoursePage
+            path="/{"
+
+          />
+        }
+        
+      />
+
       <Route path="*" element={<NotFound />} />
     </Routes>
     
