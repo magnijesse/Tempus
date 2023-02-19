@@ -5,6 +5,7 @@ import jwt_decode from "jwt-decode";
 
 import NotFound from "./pages/NotFound.js";
 import Home from "./pages/Home.js";
+import Thread from "./pages/Thread.js";
 
 import "../utilities.css";
 
@@ -12,7 +13,7 @@ import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
 
-import CoursePage from "./pages/Courses.js";
+import Courses from "./pages/Courses.js";
 
 
 /**
@@ -59,28 +60,27 @@ const App = () => {
           
         }
       />
-       <Route
-        path="/courses"
-        element={
-          <CoursePage
-            path="/"
 
-          />
-        }
-        
-      />
       <Route
         path="/courses"
         element={
-          <CoursePage
-            path="/{"
-
+          <Courses
           />
         }
         
       />
-
+        <Route
+        exact
+        path = '/courses/:id'
+        element={
+          <Thread
+          />
+        }
+        
+      />
       <Route path="*" element={<NotFound />} />
+
+      
     </Routes>
     
   );
