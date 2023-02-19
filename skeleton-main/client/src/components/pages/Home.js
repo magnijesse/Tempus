@@ -6,7 +6,9 @@ import logo from '../../../dist/Tempus.png';
 import "../../utilities.css";
 import "./Home.css";
 
-const Home = () => {
+const Home = (props) => {
+
+    //TODO: new class setup
 
     return (
     <div>

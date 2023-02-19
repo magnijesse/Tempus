@@ -6,13 +6,20 @@ import jwt_decode from "jwt-decode";
 import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
 import Home from "./pages/Home.js";
+<<<<<<< HEAD
 import About from "./pages/About.js";
+=======
+import ClassSetup from "./pages/ClassSetup.js";
+>>>>>>> jesseBranch
 
 import "../utilities.css";
 
 import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
+
+import { nanoid } from 'nanoid'
+
 
 /**
  * Define the "App" component
@@ -50,6 +57,17 @@ const App = () => {
         path="/skeleton"
         element={
           <Skeleton
+            path="/"
+            handleLogin={handleLogin}
+            handleLogout={handleLogout}
+            userId={userId}
+          />
+        }
+      />
+      <Route
+        path="/classsetup"
+        element={
+          <ClassSetup
             path="/"
             handleLogin={handleLogin}
             handleLogout={handleLogout}
