@@ -14,7 +14,7 @@ const Home = () => {
             <img src={logo} alt="logo"/> </div>
        <button className="button-container1">Log In</button>
        <button className="button-container1">Add New Class</button>
-       <button className="button-container1">My Schedule</button>
+       <button className="button-container1" onClick={() => location.assign(`/courses`)}> My Schedule</button>
        <button className="button-container1">About Tempus</button>
 
     </div>
