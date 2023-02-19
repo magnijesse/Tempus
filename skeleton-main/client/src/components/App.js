@@ -4,13 +4,16 @@ import { Routes, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 import NotFound from "./pages/NotFound.js";
-import Skeleton from "./pages/Skeleton.js";
+import Home from "./pages/Home.js";
 
 import "../utilities.css";
 
 import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
+
+import CoursePage from "./pages/Courses.js";
+
 
 /**
  * Define the "App" component
@@ -47,7 +50,7 @@ const App = () => {
       <Route
         path="/"
         element={
-          <Skeleton
+          <Home
             path="/"
             handleLogin={handleLogin}
             handleLogout={handleLogout}
@@ -55,8 +58,18 @@ const App = () => {
           />
         }
       />
+       <Route
+        path="/courses"
+        element={
+          <CoursePage
+            path="/"
+
+          />
+        }
+      />
       <Route path="*" element={<NotFound />} />
     </Routes>
+    
   );
 };
 
