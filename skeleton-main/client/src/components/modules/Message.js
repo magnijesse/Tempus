@@ -8,8 +8,4 @@ const Message = (props) => {
   );
 };
 
-<<<<<<< HEAD
 export default Message;
-=======
-export default Message;
->>>>>>> buttonTransition

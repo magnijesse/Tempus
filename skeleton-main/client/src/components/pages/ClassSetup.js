@@ -14,8 +14,8 @@ const ClassSetup = (props) => {
         event.preventDefault()
 
         post("/api/classes", { name: name, classid: nanoid(), blockNumber: blockNumber }).then((res) => {
-            // alert("all set!")   
-            console.log('res', res);
+            alert("all set!")   
+            location.assign("/")
         });
             
     }

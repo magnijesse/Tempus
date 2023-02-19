@@ -4,17 +4,13 @@ import { Routes, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 import NotFound from "./pages/NotFound.js";
-<<<<<<< HEAD
-import Skeleton from "./pages/Skeleton.js";
+
 import Home from "./pages/Home.js";
-<<<<<<< HEAD
 import About from "./pages/About.js";
-=======
+import Courses from "./pages/Courses.js"
+import Thread from "./pages/Thread.js";
+
 import ClassSetup from "./pages/ClassSetup.js";
->>>>>>> jesseBranch
-=======
-import Home from "./pages/Home.js";
->>>>>>> buttonTransition
 
 import "../utilities.css";
 
@@ -22,11 +18,9 @@ import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
 
-<<<<<<< HEAD
 import { nanoid } from 'nanoid'
-=======
+
 import CoursePage from "./pages/Courses.js";
->>>>>>> buttonTransition
 
 
 /**
@@ -62,48 +56,42 @@ const App = () => {
   return (
     <Routes>
       <Route
-        path="/skeleton"
-        element={
-          <Home
-            path="/"
-            handleLogin={handleLogin}
-            handleLogout={handleLogout}
-            userId={userId}
-          />
-        }
-      />
-<<<<<<< HEAD
-      <Route
-        path="/classsetup"
-        element={
-          <ClassSetup
-            path="/"
-            handleLogin={handleLogin}
-            handleLogout={handleLogout}
-            userId={userId}
-=======
-       <Route
-        path="/courses"
-        element={
-          <CoursePage
-            path="/"
-
->>>>>>> buttonTransition
-          />
-        }
-      />
-      <Route path="*" element={<NotFound />} />
-      <Route
         path="/"
         element={
           <Home
-            path="/"
             handleLogin={handleLogin}
             handleLogout={handleLogout}
             userId={userId}
           />
+          
         }
       />
+
+      <Route
+        path="/courses"
+        element={
+          <Courses/>
+        }
+        
+      />
+        <Route
+        path="/classsetup"
+        element={
+          <ClassSetup/>
+        }
+        
+      />
+        <Route
+        exact
+        path = '/courses/:id'
+        element={
+          <Thread/>
+        }
+        
+      />
+      <Route path="*" element={<NotFound />} />
+
+      
     </Routes>
     
   );
