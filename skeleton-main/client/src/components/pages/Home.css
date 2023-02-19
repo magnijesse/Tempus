@@ -1,13 +1,16 @@
-html, body {
-    margin:0;
-    height:100%;
-    overflow:hidden;
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-
-
-.background-container {
-    
-    background-repeat:no-repeat;
-    background-size:contain;
-}  
+.button-container {
+    height:300px;
+    width:300px;
+    border-radius:10px;
+    border:none;
+    background-color:#3b88c3;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+};
