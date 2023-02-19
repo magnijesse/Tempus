@@ -65,6 +65,16 @@ const App = () => {
           />
         }
       />
+      <Route
+        path="/precalc"
+        element={
+          <precalc
+            handleLogin={handleLogin}
+            handleLogout={handleLogout}
+            userId={userId}
+          />
+        }
+      />
       {/* <Route path="*" element={<NotFound />} /> */}
     </Routes>
   );
