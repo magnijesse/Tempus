@@ -16,9 +16,11 @@ const NewMessage = (props) => {
       <button
         onClick={() => {
           console.log(messageText);
+          console.log('Im here 1');
           post("/api/message", { content: messageText }).then(() => {
             setMessageText("");
           });
+          console.log('Im here 2');
         }}
       >
         Send Message

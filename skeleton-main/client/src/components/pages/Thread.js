@@ -26,7 +26,6 @@ const Thread = ({ userId, handleLogin, handleLogout }) => {
   }, []);
 
   return (
-    <div>
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       {userId ? (
         <button
@@ -49,7 +48,6 @@ const Thread = ({ userId, handleLogin, handleLogout }) => {
       </div>
 
     </GoogleOAuthProvider>
-    </div>
   );
 };
 

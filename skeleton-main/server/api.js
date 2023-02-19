@@ -11,6 +11,7 @@ const express = require("express");
 
 // import models so we can interact with the database
 const User = require("./models/user");
+const Message = require("./models/message");
 
 // import authentication library
 const auth = require("./auth");
@@ -42,6 +43,28 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
+
+router.get("/messages", (req, res) => {
+  console.log('Im here 4');
+  Message.find({}).then((messageObjs) => {
+    res.send(messageObjs);
+  });
+});
+
+router.post("/message", (req, res) => {
+  console.log('Im here 3');
+  if (req.user) {
+    const newMessage = new Message({
+      name: req.user.name,
+      content: req.body.content,
+    });
+    newMessage.save().then(() => {
+      res.send({});
+    });
+  } else {
+    res.send({});
+  }
+});
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
