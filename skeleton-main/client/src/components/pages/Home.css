@@ -1,16 +1,26 @@
+html {
+    box-sizing: border-box;
+    overflow-y: hidden;
+  }
+
 .image-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.button-container {
-    height:300px;
-    width:300px;
+.button-container1 {
+    position:relative;
+    top:-280px;
+    padding: auto;
     border-radius:10px;
     border:none;
     background-color:#3b88c3;
-    align-items: center;
+    object-position:center;
+    color: white;
+    font-family: Josefin Sans;
+    text-size-adjust:inherit;
     justify-content: center;
-    display: flex;
 };
+
+
