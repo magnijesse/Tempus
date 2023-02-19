@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Switch } from "react-router-dom";
 
 import jwt_decode from "jwt-decode";
 
 import NotFound from "./pages/NotFound.js";
 import Skeleton from "./pages/Skeleton.js";
-import Home from "./pages/Home.js";
 
 import "../utilities.css";
 
 import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
+import HelloPage from "./pages/Hello.js";
 
 /**
  * Define the "App" component
@@ -49,14 +49,23 @@ const App = () => {
         path="/"
         element={
           <Skeleton
-            path="/"
             handleLogin={handleLogin}
             handleLogout={handleLogout}
             userId={userId}
           />
         }
       />
-      <Route path="*" element={<NotFound />} />
+      <Route
+        path="/hellopage"
+        element={
+          <HelloPage
+            handleLogin={handleLogin}
+            handleLogout={handleLogout}
+            userId={userId}
+          />
+        }
+      />
+      {/* <Route path="*" element={<NotFound />} /> */}
     </Routes>
   );
 };
