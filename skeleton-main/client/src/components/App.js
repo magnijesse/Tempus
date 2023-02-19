@@ -58,7 +58,7 @@ const App = () => {
       />
       <Route path="*" element={<NotFound />} />
       <Route
-        path="/home"
+        path="/"
         element={
           <Home
             path="/"
