@@ -21,7 +21,7 @@ const NewMessage = (props) => {
           });
         }}
       >
-        Send Message
+        Post
       </button>
     </div>
   );

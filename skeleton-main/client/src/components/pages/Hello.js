@@ -42,7 +42,7 @@ const HelloPage = ({ userId, handleLogin, handleLogout }) => {
         <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
       )}
 
-      <div>Hello world</div>
+      <h1>MESSAGE THREAD</h1>
       <NewMessage />
       <div>
         {messages.map((messageObj) => {
