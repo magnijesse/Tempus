@@ -1,8 +1,6 @@
 import React from "react";
 
-const ClassButton = (props) => {
-    
-
+const CourseButton = (props) => {
     
     return (
         <button>
@@ -12,4 +10,4 @@ const ClassButton = (props) => {
 
 }
 
-export default ClassButton
+export default CourseButton

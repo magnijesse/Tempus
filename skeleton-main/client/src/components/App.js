@@ -13,6 +13,9 @@ import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
 
+import { nanoid } from 'nanoid'
+
+
 /**
  * Define the "App" component
  */
