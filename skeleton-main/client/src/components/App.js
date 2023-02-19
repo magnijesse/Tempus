@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 import NotFound from "./pages/NotFound.js";
+<<<<<<< HEAD
 import Skeleton from "./pages/Skeleton.js";
 import Home from "./pages/Home.js";
 <<<<<<< HEAD
@@ -11,6 +12,9 @@ import About from "./pages/About.js";
 =======
 import ClassSetup from "./pages/ClassSetup.js";
 >>>>>>> jesseBranch
+=======
+import Home from "./pages/Home.js";
+>>>>>>> buttonTransition
 
 import "../utilities.css";
 
@@ -18,7 +22,11 @@ import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
 
+<<<<<<< HEAD
 import { nanoid } from 'nanoid'
+=======
+import CoursePage from "./pages/Courses.js";
+>>>>>>> buttonTransition
 
 
 /**
@@ -56,7 +64,7 @@ const App = () => {
       <Route
         path="/skeleton"
         element={
-          <Skeleton
+          <Home
             path="/"
             handleLogin={handleLogin}
             handleLogout={handleLogout}
@@ -64,6 +72,7 @@ const App = () => {
           />
         }
       />
+<<<<<<< HEAD
       <Route
         path="/classsetup"
         element={
@@ -72,6 +81,14 @@ const App = () => {
             handleLogin={handleLogin}
             handleLogout={handleLogout}
             userId={userId}
+=======
+       <Route
+        path="/courses"
+        element={
+          <CoursePage
+            path="/"
+
+>>>>>>> buttonTransition
           />
         }
       />
@@ -88,6 +105,7 @@ const App = () => {
         }
       />
     </Routes>
+    
   );
 };
 
