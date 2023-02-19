@@ -19,7 +19,7 @@ const Home = (props) => {
        <button className="button-container1">Log In</button>
        <button className="button-container1" onClick={() => location.assign(`/classsetup`)}> Add New Class</button>
        <button className="button-container1" onClick={() => location.assign(`/courses`)}> My Schedule</button>
-       <button className="button-container1">About Tempus</button>
+       <button className="button-container1" onClick={() => location.assign(`/about`)}>About Tempus</button>
 
     </div>
            
