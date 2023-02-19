@@ -2,6 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react"
 import { nanoid } from 'nanoid'
 
+import "./ClassSetup.css"
+
 import { get, post } from "../../utilities";
 
 
@@ -25,6 +27,7 @@ const ClassSetup = (props) => {
             <h1>Setup a new class!</h1>
 
             <form>
+                <h3>Class</h3>
                 <input 
                     type="text"
                     value={name}
@@ -32,6 +35,7 @@ const ClassSetup = (props) => {
                       setName(event.target.value);
                     }}
                 />
+                <h3>Block Number</h3>
                 <input 
                     type="number"
                     value={blockNumber}
@@ -39,7 +43,7 @@ const ClassSetup = (props) => {
                       setBlockNumber(event.target.value);
                     }}
                 />        
-                <button
+                <button 
                     onClick={handleSubmit}
                 >Submit</button>   
             </form>

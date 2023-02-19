@@ -74,6 +74,12 @@ const App = () => {
         }
         
       />
+      <Route
+        path="/about"
+        element={
+          <About/>
+        }
+      />
         <Route
         path="/classsetup"
         element={
