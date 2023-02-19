@@ -57,17 +57,6 @@ const App = () => {
         }
       />
       <Route path="*" element={<NotFound />} />
-      <Route
-        path="/home"
-        element={
-          <Home
-            path="/"
-            handleLogin={handleLogin}
-            handleLogout={handleLogout}
-            userId={userId}
-          />
-        }
-      />
     </Routes>
   );
 };
