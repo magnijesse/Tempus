@@ -11,7 +11,7 @@ const express = require("express");
 
 // import models so we can interact with the database
 const User = require("./models/user");
-const Class = require("./models/schoolClass")
+const Class = require("./models/schoolClass");
 
 // import authentication library
 const auth = require("./auth");
@@ -44,24 +44,28 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-router.post("/classes", (req, res) => {
+router.get("/classes", (req, res) => {
+  Class.find().then((classObj) => {
+    console.log(classObj);
+    res.send(classObj);
+  });
+});
 
+router.post("/classes", (req, res) => {
   const newClass = new Class({
     name: req.body.name,
     blockNumber: req.body.blockNumber,
-    classid: req.body.classid
-  })
+    classid: req.body.classid,
+  });
   newClass.save().then(() => {
-    res.send({'message' : 'success'})
-  })
-})
+    res.send({ message: "success" });
+  });
+});
 
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);
   res.status(404).send({ msg: "API route not found" });
 });
-
-
 
 module.exports = router;

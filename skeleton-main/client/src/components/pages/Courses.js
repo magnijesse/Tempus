@@ -12,26 +12,27 @@ import { Routes, Route } from "react-router-dom";
 import Thread from "./Thread.js";
 import NotFound from "./NotFound.js";
 
+const Courses = () => {
+  const [classes, setClasses] = useState([]);
 
-
-//TODO: REPLACE WITH YOUR OWN CLIENT_ID
-const GOOGLE_CLIENT_ID = "518418044074-3o2nk4767heckhbvpo6pe1bfkvf3s361.apps.googleusercontent.com";
-
-const Courses = ({ userId, handleLogin, handleLogout }) => {
-    //right now I'm manually making a SchoolClass, later use NewSchoolClass
-    const[classID, setClassID] = useState("abcd");
-    return (
-        <div>
-                    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-            <h1>Schedule for Today!</h1>
-        
-        <SchoolClass name = "Statistics" classid = "abcd" /> 
-      </GoogleOAuthProvider>
-            
-        </div>
-
-
+  useEffect(() => {
+    get("/api/classes").then((res) => {
+      setClasses(
+        res.map((classObj) => {
+          return <SchoolClass name={classObj.name} classId={classObj.classid} />;
+        })
       );
+    });
+  }, []);
+
+  console.log(classes);
+
+  return (
+    <div>
+      <h1>Schedule for Today!</h1>
+      {classes}
+    </div>
+  );
 };
 
 export default Courses;
