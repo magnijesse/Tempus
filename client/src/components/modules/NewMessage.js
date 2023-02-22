@@ -16,11 +16,13 @@ const NewMessage = (props) => {
       <button
         onClick={() => {
           console.log(messageText);
-          console.log('Im here 1');
-          post("/api/message", { content: messageText }).then(() => {
+          const classid = window.location.pathname.split("/").pop();
+          post("/api/message", {
+            content: messageText,
+            classid: classid,
+          }).then(() => {
             setMessageText("");
           });
-          console.log('Im here 2');
         }}
       >
         Send Message

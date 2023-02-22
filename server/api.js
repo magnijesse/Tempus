@@ -12,6 +12,7 @@ const express = require("express");
 // import models so we can interact with the database
 const User = require("./models/user");
 const Class = require("./models/schoolClass");
+const Message = require("./models/message");
 
 // import authentication library
 const auth = require("./auth");
@@ -45,8 +46,7 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 
 router.get("/classes", (req, res) => {
-  Class.find().then((classObj) => {
-    console.log(classObj);
+  Class.find({}).then((classObj) => {
     res.send(classObj);
   });
 });
@@ -59,6 +59,24 @@ router.post("/classes", (req, res) => {
   });
   newClass.save().then(() => {
     res.send({ message: "success" });
+  });
+});
+
+router.get("/messages", (req, res) => {
+  const classid = req.query.classid.slice(0, -1);
+  console.log(`Class ID: ${classid}`);
+  Message.find({ classid: classid }).then((messageObj) => {
+    res.send(messageObj);
+  });
+});
+
+router.post("/message", (req, res) => {
+  const newMessage = new Message({
+    content: req.body.content,
+    classid: req.body.classid,
+  });
+  newMessage.save().then(() => {
+    res.send({});
   });
 });
 

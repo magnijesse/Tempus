@@ -19,7 +19,7 @@ const Courses = () => {
     get("/api/classes").then((res) => {
       setClasses(
         res.map((classObj) => {
-          return <SchoolClass name={classObj.name} classId={classObj.classid} />;
+          return <SchoolClass key={classObj._id} name={classObj.name} classId={classObj.classid} />;
         })
       );
     });

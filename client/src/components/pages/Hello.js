@@ -7,10 +7,6 @@ import "./Skeleton.css";
 import Message from "../modules/Message";
 import NewMessage from "../modules/NewMessage";
 
-
-//TODO: REPLACE WITH YOUR OWN CLIENT_ID
-const GOOGLE_CLIENT_ID = "518418044074-3o2nk4767heckhbvpo6pe1bfkvf3s361.apps.googleusercontent.com";
-
 const HelloPage = ({ userId, handleLogin, handleLogout }) => {
   const [messages, setMessages] = useState([]);
 
@@ -27,28 +23,14 @@ const HelloPage = ({ userId, handleLogin, handleLogout }) => {
   }, []);
 
   return (
-    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-      {userId ? (
-        <button
-          onClick={() => {
-            googleLogout();
-            handleLogout();
-          }}
-        >
-          Logout
-        </button>
-      ) : (
-        <GoogleLogin onSuccess={handleLogin} onError={(err) => console.log(err)} />
-      )}
-
-      <div>Hello world</div>
+    <div>
       <NewMessage />
       <div>
         {messages.map((messageObj) => {
           return <Message name={messageObj.name} content={messageObj.content} />;
         })}
       </div>
-    </GoogleOAuthProvider>
+    </div>
   );
 };
 
