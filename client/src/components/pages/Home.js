@@ -32,7 +32,7 @@ const Home = (props) => {
         About Tempus
       </button>
 
-      <button onClick={() => auth.signOut()}>Sign Out</button>
+      {user && <button onClick={() => auth.signOut()}>Sign Out</button>}
     </div>
   );
 };

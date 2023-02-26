@@ -6,7 +6,11 @@ const SchoolClass = (props) => {
 
   return (
     <div className="name">
+      <h4>
+        {props.startTime} - {props.endTime}
+      </h4>
       <h3>{props.name}</h3>
+
       <button onClick={() => location.assign(`/courses/${props.classId}`)}>
         {props.name} page{" "}
       </button>

@@ -90,10 +90,8 @@ router.get("/classes/:classid", async (req, res) => {
     const existingClass = await Class.findOne({ classid: req.params.classid });
 
     if (existingClass) {
-      console.log("Class exists:", existingClass);
       res.send(existingClass);
     } else {
-      console.log("class doesn't exist");
       res.status(404).send({ error: "Class not found" });
     }
   } catch (error) {
@@ -106,6 +104,8 @@ router.post("/classes", (req, res) => {
     name: req.body.name,
     blockNumber: req.body.blockNumber,
     classid: req.body.classid,
+    startTime: req.body.startTime,
+    endTime: req.body.endTime,
   });
   newClass.save().then(() => {
     res.send({ message: "success" });

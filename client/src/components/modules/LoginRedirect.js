@@ -4,7 +4,14 @@ const LoginRedirect = () => {
   return (
     <div>
       <h1>You're not logged in!</h1>
-      <button> Sign in page </button>
+      <button
+        onClick={() => {
+          window.location.href = "/signin";
+        }}
+      >
+        {" "}
+        Sign in page{" "}
+      </button>
     </div>
   );
 };
