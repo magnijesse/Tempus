@@ -20,20 +20,6 @@ const auth = require("./auth");
 // api endpoints: all these paths will be prefixed with "/api/"
 const router = express.Router();
 
-//initialize socket
-const socketManager = require("./server-socket");
-
-router.post("/login", auth.login);
-router.post("/logout", auth.logout);
-router.get("/whoami", (req, res) => {
-  if (!req.user) {
-    // not logged in
-    return res.send({});
-  }
-
-  res.send(req.user);
-});
-
 router.post("/initsocket", (req, res) => {
   // do nothing if user not logged in
   if (req.user)
@@ -45,10 +31,74 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-router.get("/classes", (req, res) => {
-  Class.find({}).then((classObj) => {
-    res.send(classObj);
-  });
+router.post("/users", async (req, res) => {
+  try {
+    const existingUser = await User.findOne({ email: req.body.email });
+
+    if (!existingUser) {
+      const newUser = new User({
+        name: req.body.name,
+        email: req.body.email,
+        photo: req.body.photo,
+        classes: req.body.classes,
+      });
+
+      newUser.save().then(() => {
+        res.send({});
+      });
+    } else {
+      console.log("user exists: logging in");
+
+      res.status(409).send({ message: "User already exists" });
+    }
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
+
+router.post("/users/:email/classes", async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.params.email });
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    }
+
+    user.classes.push(req.body.classId);
+    await user.save();
+
+    res.send(user);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
+
+router.get("/users/:email/classes", async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.params.email });
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    }
+
+    res.send(user.classes);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
+
+router.get("/classes/:classid", async (req, res) => {
+  try {
+    const existingClass = await Class.findOne({ classid: req.params.classid });
+
+    if (existingClass) {
+      console.log("Class exists:", existingClass);
+      res.send(existingClass);
+    } else {
+      console.log("class doesn't exist");
+      res.status(404).send({ error: "Class not found" });
+    }
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
 });
 
 router.post("/classes", (req, res) => {
@@ -72,6 +122,7 @@ router.get("/messages", (req, res) => {
 
 router.post("/message", (req, res) => {
   const newMessage = new Message({
+    name: req.body.name,
     content: req.body.content,
     classid: req.body.classid,
   });

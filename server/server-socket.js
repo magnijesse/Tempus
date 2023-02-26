@@ -38,9 +38,6 @@ module.exports = {
     });
   },
 
-  addUser: addUser,
-  removeUser: removeUser,
-
   getSocketFromUserID: getSocketFromUserID,
   getUserFromSocketID: getUserFromSocketID,
   getSocketFromSocketID: getSocketFromSocketID,

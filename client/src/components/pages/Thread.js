@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
+
 import Message from "../modules/Message";
 import NewMessage from "../modules/NewMessage";
-import "../../utilities.css";
+import Navbar from "../modules/Navbar";
+
+import "../../styles/utilities.css";
+
 import { get, post } from "../../utilities";
 
-//TODO: REPLACE WITH YOUR OWN CLIENT_ID
-const GOOGLE_CLIENT_ID = "518418044074-3o2nk4767heckhbvpo6pe1bfkvf3s361.apps.googleusercontent.com";
-
-const Thread = ({ userId, handleLogin, handleLogout }) => {
+const Thread = () => {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -21,6 +21,8 @@ const Thread = ({ userId, handleLogin, handleLogout }) => {
 
   return (
     <>
+      <Navbar />
+
       <h1>MESSAGE THREAD</h1>
       <NewMessage />
       <div>

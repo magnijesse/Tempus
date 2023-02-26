@@ -10,11 +10,11 @@ import App from "./components/App.js";
 const container = document.getElementById("root");
 const root = createRoot(container);
 root.render(
-  <GoogleOAuthProvider clientId="386932037035-k8v833noqjk7m4***********.apps.googleusercontent.com">
+  
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </GoogleOAuthProvider>
+  
 );
 
 // allows for live updating

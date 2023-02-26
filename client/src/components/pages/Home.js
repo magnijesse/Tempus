@@ -2,18 +2,24 @@ import React from "react";
 
 import logo from "../../../dist/Tempus.png";
 
-import { GoogleOAuthProvider, GoogleLogin, googleLogout } from "@react-oauth/google";
+// firebase auth
+import { auth } from "../../../../utils/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-import "../../utilities.css";
-import "./Home.css";
+import "../../styles/utilities.css";
+import "../../styles/Home.css";
 
 const Home = (props) => {
+  const [user, loading] = useAuthState(auth);
+
   return (
     <div>
       <div className="image-container">
         <img src={logo} alt="logo" />{" "}
       </div>
-      <button className="button-container1">Log In</button>
+      <button className="button-container1" onClick={() => location.assign(`/signin`)}>
+        Sign in
+      </button>
       <button className="button-container1" onClick={() => location.assign(`/classsetup`)}>
         {" "}
         Add New Class
@@ -25,6 +31,8 @@ const Home = (props) => {
       <button className="button-container1" onClick={() => location.assign(`/about`)}>
         About Tempus
       </button>
+
+      <button onClick={() => auth.signOut()}>Sign Out</button>
     </div>
   );
 };
