@@ -17,9 +17,11 @@ const Home = (props) => {
       <div className="image-container">
         <img src={logo} alt="logo" />{" "}
       </div>
-      <button className="button-container1" onClick={() => location.assign(`/signin`)}>
-        Sign in
-      </button>
+      {!user && (
+        <button className="button-container1" onClick={() => location.assign(`/signin`)}>
+          Sign in
+        </button>
+      )}
       <button className="button-container1" onClick={() => location.assign(`/classsetup`)}>
         {" "}
         Add New Class

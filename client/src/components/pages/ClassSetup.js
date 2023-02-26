@@ -5,6 +5,7 @@ import { nanoid } from "nanoid";
 import "../../styles/ClassSetup.css";
 
 import Navbar from "../modules/Navbar";
+import Loading from "../modules/Loading";
 
 import { get, post } from "../../utilities";
 
@@ -42,7 +43,9 @@ const ClassSetup = (props) => {
     <>
       <Navbar />
 
-      {!user && <LoginRedirect />}
+      {loading && <Loading />}
+
+      {!loading && !user && <LoginRedirect />}
 
       {user && (
         <>

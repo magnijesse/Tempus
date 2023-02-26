@@ -114,7 +114,6 @@ router.post("/classes", (req, res) => {
 
 router.get("/messages", (req, res) => {
   const classid = req.query.classid.slice(0, -1);
-  console.log(`Class ID: ${classid}`);
   Message.find({ classid: classid }).then((messageObj) => {
     res.send(messageObj);
   });

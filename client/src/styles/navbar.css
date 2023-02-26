@@ -1,0 +1,24 @@
+.main-div {
+  display: flex;
+}
+
+a.logo {
+  font-size: 2rem;
+}
+
+a.logo:link {
+  color: #3b88c3;
+  text-decoration: none;
+}
+a.logo:visited {
+  color: #3b88c3;
+  text-decoration: none;
+}
+a.logo:hover {
+  color: #3b88c3;
+  text-decoration: none;
+}
+a.logo:active {
+  color: #3b88c3;
+  text-decoration: none;
+}

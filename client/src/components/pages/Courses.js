@@ -7,6 +7,7 @@ import SchoolClass from "../modules/SchoolClass";
 
 import Navbar from "../modules/Navbar";
 import LoginRedirect from "../modules/LoginRedirect";
+import Loading from "../modules/Loading";
 
 // firebase auth
 import { auth } from "../../../../utils/firebase";
@@ -106,7 +107,9 @@ const Courses = () => {
     <div>
       <Navbar />
 
-      {!user && <LoginRedirect />}
+      {loading && <Loading />}
+
+      {!loading && !user && <LoginRedirect />}
 
       {user && (
         <>

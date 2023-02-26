@@ -1,12 +1,14 @@
 import React from "react";
 
+import "../../styles/navbar.css";
+
 const Navbar = () => {
   return (
-    <>
-      <button onClick={() => location.assign(`/home`)}>
-        <h1>HOME</h1>
-      </button>
-    </>
+    <div className="main-div">
+      <a href="/home" className="logo">
+        Tempus
+      </a>
+    </div>
   );
 };
 

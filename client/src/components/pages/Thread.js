@@ -4,6 +4,7 @@ import Message from "../modules/Message";
 import NewMessage from "../modules/NewMessage";
 import Navbar from "../modules/Navbar";
 import LoginRedirect from "../modules/LoginRedirect";
+import Loading from "../modules/Loading";
 
 // firebase auth
 import { auth } from "../../../../utils/firebase";
@@ -20,16 +21,22 @@ const Thread = () => {
   useEffect(() => {
     const classid = window.location.href.slice(window.location.href.lastIndexOf("/") + 1);
     get(`/api/messages?classid=${classid}`).then((messageObjs) => {
-      console.log(messageObjs);
       setMessages(messageObjs);
     });
+    setInterval(() => {
+      get(`/api/messages?classid=${classid}`).then((messageObjs) => {
+        setMessages(messageObjs);
+      });
+    }, 2000);
   }, []);
 
   return (
     <>
       <Navbar />
 
-      {!user && <LoginRedirect />}
+      {loading && <Loading />}
+
+      {!loading && !user && <LoginRedirect />}
 
       {user && (
         <>
@@ -37,7 +44,9 @@ const Thread = () => {
           <NewMessage />
           <div>
             {messages.map((messageObj) => {
-              return <Message name={messageObj.name} content={messageObj.content} />;
+              return (
+                <Message key={messageObj._id} name={messageObj.name} content={messageObj.content} />
+              );
             })}
           </div>
         </>
