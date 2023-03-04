@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import Message from "../modules/Message";
 import NewMessage from "../modules/NewMessage";
-import Navbar from "../modules/Navbar";
 import LoginRedirect from "../modules/LoginRedirect";
 import Loading from "../modules/Loading";
 
@@ -10,7 +9,7 @@ import Loading from "../modules/Loading";
 import { auth } from "../../../../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-import "../../styles/utilities.css";
+import "../../styles/thread.css";
 
 import { get, post } from "../../utilities";
 
@@ -32,8 +31,6 @@ const Thread = () => {
 
   return (
     <>
-      <Navbar />
-
       {loading && <Loading />}
 
       {!loading && !user && <LoginRedirect />}

@@ -1,13 +1,13 @@
 import React from "react";
 
-import Navbar from "../modules/Navbar";
-
 import { get, post } from "../../utilities";
 
 // firebase auth
 import { auth } from "../../../../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+
+import "../../styles/signin.css";
 
 const SignIn = () => {
   const [user, loading] = useAuthState(auth);
@@ -27,7 +27,7 @@ const SignIn = () => {
 
       alert("Success!");
 
-      window.location.href = "/home";
+      window.location.href = "/";
     } catch (error) {
       console.log(error);
     }
@@ -35,8 +35,6 @@ const SignIn = () => {
 
   return (
     <>
-      <Navbar />
-
       {!user && (
         <>
           <h3>Sign in with one of the providers</h3>

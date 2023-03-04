@@ -1,31 +1,11 @@
-html {
-    box-sizing: border-box;
-    overflow-y: hidden;
-  }
-
-.image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-justify: center;
+  margin-top: 100px;
 }
 
-.button-container1 {
-    position:relative;
-    top:-280px;
-    padding: auto;
-    border-radius:10px;
-    border:none;
-    background-color:#3b88c3;
-    object-position:center;
-    color: white;
-    font-family: Josefin Sans;
-    text-size-adjust:inherit;
-    justify-content: center;
-    cursor: pointer;
-    margin-right: 10px;
-    padding: 5px;
-};
-
-h1 {
-    font-family: Josefin Sans;
+.logo {
+  width: 750px;
 }

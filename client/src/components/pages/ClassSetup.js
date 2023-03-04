@@ -2,9 +2,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 
-import "../../styles/ClassSetup.css";
-
-import Navbar from "../modules/Navbar";
 import Loading from "../modules/Loading";
 
 import { get, post } from "../../utilities";
@@ -17,32 +14,66 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import LoginRedirect from "../modules/LoginRedirect";
 
 const ClassSetup = (props) => {
-  const [name, setName] = useState("Class Name");
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndtime] = useState("");
-  const [blockNumber, setBlockNumber] = useState(0);
-
   const [user, loading] = useAuthState(auth);
+
+  const initialValues = { name: "", startTime: "", endTime: "", blockNumber: 0 };
+  const [formValues, setFormValues] = useState(initialValues);
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+
+  const classId = nanoid();
+
+  useEffect(() => {
+    console.log(formErrors);
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+      console.log(formValues);
+
+      post("/api/classes", {
+        name: formValues.name,
+        classid: classId,
+        blockNumber: formValues.blockNumber,
+        startTime: formValues.startTime,
+        endTime: formValues.endTime,
+      }).then((res) => {
+        alert("all set!");
+        location.assign("/");
+      });
+      post(`/api/users/${user.email}/classes`, {
+        classId: classId,
+      });
+    }
+  }, [formErrors]);
+  const validate = (values) => {
+    const errors = {};
+    if (!values.name) {
+      errors.name = "Class Name is required!";
+    }
+    if (!values.startTime) {
+      errors.startTime = "Start Time is required!";
+    }
+    if (!values.endTime) {
+      errors.endTime = "End Time is required";
+    }
+    if (!values.blockNumber || values.blockNumber == 0) {
+      errors.blockNumber = "Block Number is required";
+    }
+
+    return errors;
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormValues({ ...formValues, [name]: value });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    post("/api/classes", {
-      name: name,
-      classid: nanoid(),
-      blockNumber: blockNumber,
-      startTime: startTime,
-      endTime: endTime,
-    }).then((res) => {
-      alert("all set!");
-      location.assign("/");
-    });
+    setFormErrors(validate(formValues));
+    setIsSubmit(true);
   };
 
   return (
     <>
-      <Navbar />
-
       {loading && <Loading />}
 
       {!loading && !user && <LoginRedirect />}
@@ -52,37 +83,27 @@ const ClassSetup = (props) => {
           <h1>Setup a new class!</h1>
           <form>
             <h3>Class</h3>
-            <input
-              type="text"
-              value={name}
-              onChange={(event) => {
-                setName(event.target.value);
-              }}
-            />
+            <input type="text" name="name" value={formValues.name} onChange={handleChange} />
+            <p>{formErrors.name}</p>
             <h3>Start Time</h3>
             <input
               type="time"
-              value={startTime}
-              onChange={(event) => {
-                setStartTime(event.target.value);
-              }}
+              name="startTime"
+              value={formValues.startTime}
+              onChange={handleChange}
             />
+            <p>{formErrors.startTime}</p>
             <h3>End Time</h3>
-            <input
-              type="time"
-              value={endTime}
-              onChange={(event) => {
-                setEndtime(event.target.value);
-              }}
-            />
+            <input type="time" name="endTime" value={formValues.endTime} onChange={handleChange} />
+            <p>{formErrors.endTime}</p>
             <h3>Block Number</h3>
             <input
               type="number"
-              value={blockNumber}
-              onChange={(event) => {
-                setBlockNumber(event.target.value);
-              }}
+              name="blockNumber"
+              value={formValues.blockNumber}
+              onChange={handleChange}
             />
+            <p>{formErrors.blockNumber}</p>
             <button onClick={handleSubmit}>Submit</button>
           </form>
         </>

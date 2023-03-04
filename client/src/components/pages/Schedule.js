@@ -5,7 +5,6 @@ import "../../styles/utilities.css";
 
 import SchoolClass from "../modules/SchoolClass";
 
-import Navbar from "../modules/Navbar";
 import LoginRedirect from "../modules/LoginRedirect";
 import Loading from "../modules/Loading";
 
@@ -17,7 +16,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 import { get, post } from "../../utilities";
 
-const Courses = () => {
+const Schedule = () => {
   const [user, loading] = useAuthState(auth);
   const [classes, setClasses] = useState([]);
 
@@ -105,8 +104,6 @@ const Courses = () => {
 
   return (
     <div>
-      <Navbar />
-
       {loading && <Loading />}
 
       {!loading && !user && <LoginRedirect />}
@@ -146,4 +143,4 @@ const Courses = () => {
   );
 };
 
-export default Courses;
+export default Schedule;
