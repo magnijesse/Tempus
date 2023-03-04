@@ -1,5 +1,4 @@
 import React from "react";
-
 import { get, post } from "../../utilities";
 
 // firebase auth
@@ -7,7 +6,7 @@ import { auth } from "../../../../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
-import "../../styles/signin.css";
+import "../../styles/signin.css"
 
 const SignIn = () => {
   const [user, loading] = useAuthState(auth);
@@ -36,13 +35,17 @@ const SignIn = () => {
   return (
     <>
       {!user && (
-        <>
+      <div className="sign-in-box">
           <h3>Sign in with one of the providers</h3>
-          <div>
-            <button onClick={GoogleLogin}>Sign in with google</button>
-            <button>Sign in with facebook</button>
+          <div className="sign-in-button-div">
+          <FcGoogle />
+            <button className="sign-in-button" onClick={GoogleLogin}>
+              Sign in with google
+            </button>
+            
+            <button className="sign-in-button">Sign in with facebook</button>
           </div>
-        </>
+        </div>
       )}
     </>
   );
