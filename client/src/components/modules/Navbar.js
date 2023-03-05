@@ -25,14 +25,13 @@ const Navbar = () => {
         <div className="nav-elements">
           <ul>
             <li>
-              <NavLink to="/classsetup">Add New Class</NavLink>
-            </li>
-
-            <li>
               <NavLink to="/schedule">Schedule</NavLink>
             </li>
             <li>
               <NavLink to="/contact">Contact</NavLink>
+            </li>
+            <li>
+              <NavLink to="/classsetup">New Class</NavLink>
             </li>
           </ul>
         </div>
@@ -40,6 +39,11 @@ const Navbar = () => {
           {user && (
             <NavLink to="/profile" className="pfp">
               <img src={user.photoURL} className="pfp--img" />
+            </NavLink>
+          )}
+          {!user && (
+            <NavLink to="/signin" className="signin">
+              <button>Sign In</button>
             </NavLink>
           )}
         </div>

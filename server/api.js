@@ -31,6 +31,7 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
+// SignIn.js
 router.post("/users", async (req, res) => {
   try {
     const existingUser = await User.findOne({ email: req.body.email });
@@ -56,21 +57,7 @@ router.post("/users", async (req, res) => {
   }
 });
 
-router.post("/users/:email/classes", async (req, res) => {
-  try {
-    const user = await User.findOne({ email: req.params.email });
-    if (!user) {
-      return res.status(404).send({ error: "User not found" });
-    }
-
-    user.classes.push(req.body.classId);
-    await user.save();
-
-    res.send(user);
-  } catch (error) {
-    res.status(500).send({ error: error.message });
-  }
-});
+// Schedule.js
 
 router.get("/users/:email/classes", async (req, res) => {
   try {
@@ -99,18 +86,71 @@ router.get("/classes/:classid", async (req, res) => {
   }
 });
 
+// ClassSetup.js
+
 router.post("/classes", (req, res) => {
   const newClass = new Class({
     name: req.body.name,
     blockNumber: req.body.blockNumber,
     classid: req.body.classid,
+    days: req.body.days,
     startTime: req.body.startTime,
     endTime: req.body.endTime,
+    creator: req.body.creator,
   });
   newClass.save().then(() => {
     res.send({ message: "success" });
   });
 });
+
+router.post("/users/:email/classes", async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.params.email });
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    }
+
+    user.classes.push(req.body.classid);
+    await user.save();
+
+    res.send(user);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
+
+router.post("/users/:email/createdClasses", async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.params.email });
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    }
+
+    user.createdClasses.push(req.body.classid);
+    await user.save();
+
+    res.send(user);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
+
+// Profile.js
+
+router.get("/users/:email/createdClasses", async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.params.email });
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    }
+
+    res.send(user.createdClasses);
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
+
+// Thread.js
 
 router.get("/messages", (req, res) => {
   const classid = req.query.classid.slice(0, -1);

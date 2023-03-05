@@ -14,35 +14,15 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 //purpose = list of classes
 
-import { get, post } from "../../utilities";
+import { get, post, ConvertToStandard } from "../../utilities";
 
 const Schedule = () => {
   const [user, loading] = useAuthState(auth);
   const [classes, setClasses] = useState([]);
 
-  const [classId, setClassId] = useState("");
+  const [selectedDay, setSelectedDay] = useState("m");
 
-  const ConvertToStandard = (time) => {
-    time = time.split(":");
-
-    const hours = Number(time[0]);
-    const minutes = Number(time[1]);
-
-    let timeValue;
-
-    if (hours > 0 && hours <= 12) {
-      timeValue = "" + hours;
-    } else if (hours > 12) {
-      timeValue = "" + (hours - 12);
-    } else if (hours == 0) {
-      timeValue = "12";
-    }
-
-    timeValue += minutes < 10 ? ":0" + minutes : ":" + minutes; // get minutes
-    timeValue += hours >= 12 ? " P.M." : " A.M."; // get AM/PM
-
-    return timeValue;
-  };
+  const [classid, setclassid] = useState("");
 
   // get the users classes by their email (may change later to an id)
   useEffect(() => {
@@ -51,24 +31,22 @@ const Schedule = () => {
     }
 
     get(`/api/users/${user.email}/classes`)
-      .then((classIds) => {
-        const promises = classIds.map((userClass) => {
-          console.log(`Calling API for classId: ${userClass}`);
-          return get(`/api/classes/${userClass}`)
-            .then((res) => {
-              console.log(res);
-
-              return {
-                name: res.name,
-                classId: res.classid,
-                startTime: res.startTime,
-                endTime: res.endTime,
-              };
-            })
-            .catch((err) => {
-              console.log(err);
-              return null;
-            });
+      .then((classids) => {
+        const promises = classids.map(async (userClass) => {
+          console.log(`Calling API for classid: ${userClass}`);
+          try {
+            const res = await get(`/api/classes/${userClass}`);
+            return {
+              name: res.name,
+              classid: res.classid,
+              days: res.days,
+              startTime: res.startTime,
+              endTime: res.endTime,
+            };
+          } catch (err) {
+            console.log(err);
+            return null;
+          }
         });
 
         Promise.all(promises).then((classesData) => {
@@ -80,17 +58,20 @@ const Schedule = () => {
               return aStartTime - bStartTime;
             });
 
-          const schoolClasses = sortedClassesData.map((data) => {
-            return (
-              <SchoolClass
-                key={data.classId}
-                name={data.name}
-                classId={data.classId}
-                startTime={ConvertToStandard(data.startTime)}
-                endTime={ConvertToStandard(data.endTime)}
-              />
-            );
-          });
+          const schoolClasses = sortedClassesData
+            .filter((data) => data.days.includes(selectedDay))
+            .map((data) => {
+              return (
+                <SchoolClass
+                  key={data.classid}
+                  name={data.name}
+                  days={data.days}
+                  classid={data.classid}
+                  startTime={ConvertToStandard(data.startTime)}
+                  endTime={ConvertToStandard(data.endTime)}
+                />
+              );
+            });
 
           setClasses(schoolClasses);
         });
@@ -98,9 +79,7 @@ const Schedule = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, [user]);
-
-  console.log(classes);
+  }, [user, selectedDay]);
 
   return (
     <div>
@@ -110,7 +89,19 @@ const Schedule = () => {
 
       {user && (
         <>
-          <h1>Hi {user.displayName.split(" ")[0]}! Here's your schedule for Today!</h1>
+          <h1>Hi {user.displayName.split(" ")[0]}! Here's your schedule for this week!</h1>
+
+          <button onClick={() => setSelectedDay("m")}>M</button>
+          <button onClick={() => setSelectedDay("t")}>T</button>
+          <button onClick={() => setSelectedDay("w")}>W</button>
+          <button onClick={() => setSelectedDay("th")}>Th</button>
+          <button onClick={() => setSelectedDay("f")}>F</button>
+
+          {selectedDay == "m" && <h2>Monday</h2>}
+          {selectedDay == "t" && <h2>Tuesday</h2>}
+          {selectedDay == "w" && <h2>Wednesday</h2>}
+          {selectedDay == "th" && <h2>Thursday</h2>}
+          {selectedDay == "f" && <h2>Friday</h2>}
 
           {classes}
 
@@ -118,17 +109,15 @@ const Schedule = () => {
 
           <input
             type="text"
-            value={classId}
+            value={classid}
             onChange={(event) => {
-              setClassId(event.target.value);
+              setclassid(event.target.value);
             }}
           />
           <button
             onClick={() => {
-              console.log(classId);
-
               post(`/api/users/${user.email}/classes`, {
-                classId: classId,
+                classid: classid,
               }).then(() => {
                 alert("all set!");
                 location.reload();

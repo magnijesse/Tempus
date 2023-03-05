@@ -12,6 +12,11 @@ const SignIn = () => {
   const [user, loading] = useAuthState(auth);
 
   const googleProvider = new GoogleAuthProvider();
+
+  googleProvider.setCustomParameters({
+    prompt: "select_account",
+  });
+
   const GoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);

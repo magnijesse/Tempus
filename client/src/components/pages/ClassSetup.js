@@ -20,8 +20,21 @@ const ClassSetup = (props) => {
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [days, setDays] = useState([
+    { day: "m", checked: false },
+    { day: "t", checked: false },
+    { day: "w", checked: false },
+    { day: "th", checked: false },
+    { day: "f", checked: false },
+  ]);
 
-  const classId = nanoid();
+  const classid = nanoid();
+
+  const updateDays = (event) => {
+    setDays(
+      days.map((day) => (day.day === event.target.name ? { ...day, checked: !day.checked } : day))
+    );
+  };
 
   useEffect(() => {
     console.log(formErrors);
@@ -30,16 +43,23 @@ const ClassSetup = (props) => {
 
       post("/api/classes", {
         name: formValues.name,
-        classid: classId,
-        blockNumber: formValues.blockNumber,
+        classid: classid,
         startTime: formValues.startTime,
         endTime: formValues.endTime,
+        creator: user.email,
+        days: days.map((day) => (day.checked ? day.day : null)).filter(Boolean),
       }).then((res) => {
         alert("all set!");
         location.assign("/");
       });
+      post(`/api/users/${user.email}/createdClasses`, {
+        name: formValues.name,
+        classid: classid,
+        startTime: formValues.startTime,
+        endTime: formValues.endTime,
+      });
       post(`/api/users/${user.email}/classes`, {
-        classId: classId,
+        classid: classid,
       });
     }
   }, [formErrors]);
@@ -53,9 +73,6 @@ const ClassSetup = (props) => {
     }
     if (!values.endTime) {
       errors.endTime = "End Time is required";
-    }
-    if (!values.blockNumber || values.blockNumber == 0) {
-      errors.blockNumber = "Block Number is required";
     }
 
     return errors;
@@ -96,14 +113,13 @@ const ClassSetup = (props) => {
             <h3>End Time</h3>
             <input type="time" name="endTime" value={formValues.endTime} onChange={handleChange} />
             <p>{formErrors.endTime}</p>
-            <h3>Block Number</h3>
-            <input
-              type="number"
-              name="blockNumber"
-              value={formValues.blockNumber}
-              onChange={handleChange}
-            />
-            <p>{formErrors.blockNumber}</p>
+
+            <input type="button" name="m" value="m" onClick={updateDays} />
+            <input type="button" name="t" value="t" onClick={updateDays} />
+            <input type="button" name="w" value="w" onClick={updateDays} />
+            <input type="button" name="th" value="th" onClick={updateDays} />
+            <input type="button" name="f" value="f" onClick={updateDays} />
+
             <button onClick={handleSubmit}>Submit</button>
           </form>
         </>

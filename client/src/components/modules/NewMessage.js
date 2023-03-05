@@ -11,6 +11,25 @@ const NewMessage = (props) => {
   const [messageText, setMessageText] = useState("");
   const [user, loading] = useAuthState(auth);
 
+  const handleKeypress = (e) => {
+    //it triggers by pressing the enter key
+    if (e.keyCode === 13) {
+      handleSubmit();
+    }
+  };
+
+  const handleSubmit = () => {
+    console.log(messageText);
+    const classid = window.location.pathname.split("/").pop();
+    post("/api/message", {
+      name: user.displayName,
+      content: messageText,
+      classid: classid,
+    }).then(() => {
+      setMessageText("");
+    });
+  };
+
   return (
     <div>
       <input
@@ -19,20 +38,11 @@ const NewMessage = (props) => {
         onChange={(event) => {
           setMessageText(event.target.value);
         }}
+        onKeyDown={handleKeypress}
       />
       <button
         // new message post request which takes the last part of the url and sets it equal to the classid
-        onClick={() => {
-          console.log(messageText);
-          const classid = window.location.pathname.split("/").pop();
-          post("/api/message", {
-            name: user.displayName,
-            content: messageText,
-            classid: classid,
-          }).then(() => {
-            setMessageText("");
-          });
-        }}
+        onClick={handleSubmit}
       >
         Send Message
       </button>
