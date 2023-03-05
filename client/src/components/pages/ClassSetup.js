@@ -16,6 +16,8 @@ import LoginRedirect from "../modules/LoginRedirect";
 const ClassSetup = (props) => {
   const [user, loading] = useAuthState(auth);
 
+  const [classId, setclassId] = useState("");
+
   const initialValues = { name: "", startTime: "", endTime: "", blockNumber: 0 };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
@@ -122,6 +124,27 @@ const ClassSetup = (props) => {
 
             <button onClick={handleSubmit}>Submit</button>
           </form>
+          <h2>Add class with id:</h2>
+
+          <input
+            type="text"
+            value={classId}
+            onChange={(event) => {
+              setclassId(event.target.value);
+            }}
+          />
+          <button
+            onClick={() => {
+              post(`/api/users/${user.email}/classes`, {
+                classid: classId,
+              }).then(() => {
+                alert("all set!");
+                location.reload();
+              });
+            }}
+          >
+            Add Class
+          </button>
         </>
       )}
     </>

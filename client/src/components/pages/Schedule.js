@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 //styles
-import "../../styles/utilities.css";
+import "../../styles/schedule.css";
 
 import SchoolClass from "../modules/SchoolClass";
 
@@ -21,8 +21,6 @@ const Schedule = () => {
   const [classes, setClasses] = useState([]);
 
   const [selectedDay, setSelectedDay] = useState("m");
-
-  const [classid, setclassid] = useState("");
 
   // get the users classes by their email (may change later to an id)
   useEffect(() => {
@@ -88,45 +86,21 @@ const Schedule = () => {
       {!loading && !user && <LoginRedirect />}
 
       {user && (
-        <>
-          <h1>Hi {user.displayName.split(" ")[0]}! Here's your schedule for this week!</h1>
-
-          <button onClick={() => setSelectedDay("m")}>M</button>
-          <button onClick={() => setSelectedDay("t")}>T</button>
-          <button onClick={() => setSelectedDay("w")}>W</button>
-          <button onClick={() => setSelectedDay("th")}>Th</button>
-          <button onClick={() => setSelectedDay("f")}>F</button>
-
-          {selectedDay == "m" && <h2>Monday</h2>}
-          {selectedDay == "t" && <h2>Tuesday</h2>}
-          {selectedDay == "w" && <h2>Wednesday</h2>}
-          {selectedDay == "th" && <h2>Thursday</h2>}
-          {selectedDay == "f" && <h2>Friday</h2>}
+        <div className="schedule">
+          <div className="greeting">
+            <h1 className="greeting1">Hey {user.displayName.split(" ")[0]}!</h1>
+            <h1 className="greeting2">Here's your schedule for the week!</h1>
+          </div>
+          <div className="dayButtons">
+            {["M", "T", "W", "Th", "F"].map((day) => (
+              <button key={day} onClick={() => setSelectedDay(day.toLowerCase())}>
+                {day}
+              </button>
+            ))}
+          </div>
 
           {classes}
-
-          <h2>Add class with id:</h2>
-
-          <input
-            type="text"
-            value={classid}
-            onChange={(event) => {
-              setclassid(event.target.value);
-            }}
-          />
-          <button
-            onClick={() => {
-              post(`/api/users/${user.email}/classes`, {
-                classid: classid,
-              }).then(() => {
-                alert("all set!");
-                location.reload();
-              });
-            }}
-          >
-            Add Class
-          </button>
-        </>
+        </div>
       )}
     </div>
   );
