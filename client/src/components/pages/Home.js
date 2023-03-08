@@ -14,7 +14,7 @@ const Home = () => {
   return (
     <div className="main">
       <img className="logo" src={logo} />
-      <h1>THE NEW FREE WAY TO SCHEDULE YOUR CLASSES AND CHAT WITH YOUR CLASSMATES</h1>
+      <h1>THE NEW FREE WAY TO SCHEDULE YOUR CLASSES AND CHAT WITH YOUR CLASSMATES!!!!</h1>
     </div>
   );
 };

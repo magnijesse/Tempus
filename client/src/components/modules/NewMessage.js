@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // firebase auth
 import { auth } from "../../../../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-// utils
-import { get, post } from "../../utilities";
+import "../../styles/thread.css";
+
+import { get, post, ConvertToStandard } from "../../utilities";
 
 const NewMessage = (props) => {
   const [messageText, setMessageText] = useState("");
@@ -23,6 +24,8 @@ const NewMessage = (props) => {
     const classid = window.location.pathname.split("/").pop();
     post("/api/message", {
       name: user.displayName,
+      uid: user.uid,
+      time: ConvertToStandard(`${new Date().getHours()}:${new Date().getMinutes()}`),
       content: messageText,
       classid: classid,
     }).then(() => {
@@ -31,7 +34,7 @@ const NewMessage = (props) => {
   };
 
   return (
-    <div>
+    <div className="msg-inputarea">
       <input
         type="text"
         value={messageText}
@@ -41,6 +44,7 @@ const NewMessage = (props) => {
         onKeyDown={handleKeypress}
       />
       <button
+        className="msg-send-btn"
         // new message post request which takes the last part of the url and sets it equal to the classid
         onClick={handleSubmit}
       >

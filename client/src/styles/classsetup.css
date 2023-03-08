@@ -1,0 +1,104 @@
+* {
+  margin: 0;
+}
+
+.cs--main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-top: 50px;
+}
+
+.setup {
+  font-weight: 600;
+  margin: 0;
+}
+
+.setup2 {
+  margin: 0;
+  margin-top: 10px;
+  font-weight: 400;
+}
+
+h3 {
+  font-size: 25px;
+  font-weight: 300;
+}
+
+.cs--main form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+
+  margin-top: 30px;
+}
+
+input {
+  margin-top: 0px;
+}
+
+form input[type="text"] {
+  width: 30%;
+  padding: 10px;
+  border: 0;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+}
+
+form input[type="time"] {
+  padding: 10px;
+  width: 30%;
+  border: 0;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+}
+
+.days {
+  display: flex;
+
+  margin: 30px;
+}
+
+.days input {
+  display: block;
+  height: 50px;
+  width: 50px;
+  margin: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+
+  background-color: #93b5c6;
+  color: white;
+
+  border-width: 0px;
+
+  transition-duration: 0.4s;
+}
+
+.days input:hover {
+  background-color: #f0cf65;
+  color: black;
+}
+
+.days input.checkedButton {
+  background-color: #f0cf65;
+}
+
+form button {
+  margin-top: 20px;
+
+  width: 20%;
+  height: 50px;
+
+  background-color: #c47ac0;
+  border-radius: 10px;
+
+  border-width: 00;
+
+  cursor: pointer;
+}
+
+.addWithId {
+  margin-left: auto;
+  margin-right: 20px;
+}

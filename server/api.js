@@ -162,6 +162,8 @@ router.get("/messages", (req, res) => {
 router.post("/message", (req, res) => {
   const newMessage = new Message({
     name: req.body.name,
+    time: req.body.time,
+    uid: req.body.uid,
     content: req.body.content,
     classid: req.body.classid,
   });

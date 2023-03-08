@@ -77,6 +77,8 @@ const Schedule = () => {
       .catch((error) => {
         console.error(error);
       });
+
+    console.log(selectedDay);
   }, [user, selectedDay]);
 
   return (
@@ -93,7 +95,11 @@ const Schedule = () => {
           </div>
           <div className="dayButtons">
             {["M", "T", "W", "Th", "F"].map((day) => (
-              <button key={day} onClick={() => setSelectedDay(day.toLowerCase())}>
+              <button
+                className={selectedDay === day.toLowerCase() ? "activeButton" : "inactiveButton"}
+                key={day}
+                onClick={() => setSelectedDay(day.toLowerCase())}
+              >
                 {day}
               </button>
             ))}

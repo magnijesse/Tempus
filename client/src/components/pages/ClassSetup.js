@@ -13,6 +13,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 import LoginRedirect from "../modules/LoginRedirect";
 
+import "../../styles/classsetup.css";
+
 const ClassSetup = (props) => {
   const [user, loading] = useAuthState(auth);
 
@@ -98,12 +100,13 @@ const ClassSetup = (props) => {
       {!loading && !user && <LoginRedirect />}
 
       {user && (
-        <>
-          <h1>Setup a new class!</h1>
+        <div className="cs--main">
+          <h1 className="setup">Setup a new class!</h1>
+
           <form>
-            <h3>Class</h3>
+            <h3>Class Name</h3>
             <input type="text" name="name" value={formValues.name} onChange={handleChange} />
-            <p>{formErrors.name}</p>
+            <p className="error">{formErrors.name}</p>
             <h3>Start Time</h3>
             <input
               type="time"
@@ -111,41 +114,75 @@ const ClassSetup = (props) => {
               value={formValues.startTime}
               onChange={handleChange}
             />
-            <p>{formErrors.startTime}</p>
+            <p className="error">{formErrors.startTime}</p>
             <h3>End Time</h3>
             <input type="time" name="endTime" value={formValues.endTime} onChange={handleChange} />
-            <p>{formErrors.endTime}</p>
-
-            <input type="button" name="m" value="m" onClick={updateDays} />
-            <input type="button" name="t" value="t" onClick={updateDays} />
-            <input type="button" name="w" value="w" onClick={updateDays} />
-            <input type="button" name="th" value="th" onClick={updateDays} />
-            <input type="button" name="f" value="f" onClick={updateDays} />
+            <p className="error">{formErrors.endTime}</p>
+            <div className="days">
+              <input
+                className={days[0].checked ? "checkedButton" : "uncheckedButton"}
+                type="button"
+                name="m"
+                value="m"
+                onClick={updateDays}
+              />
+              <input
+                className={days[1].checked ? "checkedButton" : "uncheckedButton"}
+                type="button"
+                name="t"
+                value="t"
+                onClick={updateDays}
+              />
+              <input
+                className={days[2].checked ? "checkedButton" : "uncheckedButton"}
+                type="button"
+                name="w"
+                value="w"
+                onClick={updateDays}
+              />
+              <input
+                className={days[3].checked ? "checkedButton" : "uncheckedButton"}
+                type="button"
+                name="th"
+                value="th"
+                onClick={updateDays}
+              />
+              <input
+                className={days[4].checked ? "checkedButton" : "uncheckedButton"}
+                type="button"
+                name="f"
+                value="f"
+                onClick={updateDays}
+              />
+            </div>
 
             <button onClick={handleSubmit}>Submit</button>
           </form>
-          <h2>Add class with id:</h2>
 
-          <input
-            type="text"
-            value={classId}
-            onChange={(event) => {
-              setclassId(event.target.value);
-            }}
-          />
-          <button
-            onClick={() => {
-              post(`/api/users/${user.email}/classes`, {
-                classid: classId,
-              }).then(() => {
-                alert("all set!");
-                location.reload();
-              });
-            }}
-          >
-            Add Class
-          </button>
-        </>
+          <div className="addWithId">
+            <h2>Add class with id:</h2>
+
+            <input
+              type="text"
+              value={classId}
+              onChange={(event) => {
+                setclassId(event.target.value);
+              }}
+            />
+            <button
+              onClick={() => {
+                post(`/api/users/${user.email}/classes`, {
+                  classid: classId,
+                }).then(() => {
+                  alert("all set!");
+                  location.reload();
+                });
+              }}
+            >
+              Add Class
+            </button>
+          </div>
+        </div>
       )}
     </>
   );

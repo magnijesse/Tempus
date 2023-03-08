@@ -5,6 +5,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 30px 10%;
+  margin: 0;
+}
+
+.logo--link {
+  font-size: 30px;
+  text-decoration: none;
+  color: #3b88c3;
 }
 
 .nav-elements {

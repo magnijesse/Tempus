@@ -4,6 +4,8 @@ const MessageSchema = new mongoose.Schema({
   name: String,
   classid: String,
   content: String,
+  time: String,
+  uid: String,
 });
 
 // compile model from schema

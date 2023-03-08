@@ -38,18 +38,21 @@
   margin: 5px;
   border-radius: 50%;
   cursor: pointer;
-
-  background-color: #93b5c6;
-  color: white;
-
   border-width: 0px;
 
-  transition-duration: 0.4s;
+  background-color: #2c7da0;
 }
 
 .dayButtons button:hover {
-  background-color: #f3fcf0;
+  background-color: #2c7da0;
   color: black;
+}
+
+.dayButtons .inactiveButton {
+  background-color: #014f86;
+  color: white;
+
+  transition-duration: 0.4s;
 }
 
 .selectedDay {

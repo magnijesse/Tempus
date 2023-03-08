@@ -1,10 +1,16 @@
+.SchoolClassMain {
+  display: flex;
+
+  width: 100%;
+
+  justify-content: center;
+  align-items: center;
+}
+
 .card {
-  background-color: #540d6e;
+  background-color: #5a189a;
 
   cursor: pointer;
-
-  display: flex;
-  flex-direction: column;
 
   margin: 10px;
   padding: 0;
@@ -21,8 +27,7 @@
 }
 
 .card:hover {
-  background-color: #f3fcf0;
-  color: black;
+  background-color: #7b2cbf;
 }
 
 .time {
@@ -36,4 +41,20 @@ h3 {
   margin-top: 20px;
   margin-bottom: 20px;
   font-size: 30px;
+}
+
+button.trashButton {
+  cursor: pointer;
+
+  border-radius: 50%;
+  border-width: 0;
+
+  background-color: #e01e37;
+
+  height: 30px;
+  width: 30px;
+}
+
+i {
+  color: #161a1d;
 }
